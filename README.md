@@ -10,7 +10,7 @@
 - If input is "rock" → return "Rock"
 - Else if input is "paper" → return "Paper"
 - Else if input is "scissors" → return "Scissors"
-- Else → return default "Rock"
+- Else -> return getComputerChoice
 
 ### Function: playRound(humanChoice, computerChoice)
 - Initialize message and currentScoreTally
@@ -24,10 +24,10 @@
 - Print message and score tally
 
 ### Function: playGame
-- Set humanScore and computerScore to 0
 - Repeat 5 rounds:
     - Get humanChoice from getHumanChoice()
     - Get computerChoice from getComputerChoice()
     - Call playRound(humanChoice, computerChoice)
 
+Set humanScore and computerScore to 0 in global scope
 Call playGame()
