@@ -13,27 +13,26 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let user_input = prompt("What's your playing hand?");
-    user_input = user_input.toLowerCase();
-
-    if (user_input === "rock") {
-        return "Rock";
+function checkWinner() {
+    if (humanScore === 5) {
+        winner.textContent = "Player Wins!!!";
+        wholeBody.removeChild(rockButton);
+        wholeBody.removeChild(paperButton);
+        wholeBody.removeChild(scissorsButton);
     }
-    else if (user_input === "paper") {
-        return "Paper";
-    }
-    else if (user_input === "scissors") {
-        return "Scissors";
-    }
-    else {
-        return getComputerChoice();
+    else if (computerScore === 5) {
+        winner.textContent = "Computer Wins!!!";
+        wholeBody.removeChild(rockButton);
+        wholeBody.removeChild(paperButton);
+        wholeBody.removeChild(scissorsButton);
     }
 }
 
 function playRound(humanChoice, computerChoice) {
     let message;
-    let currentScoreTally;
+    let currentScoreTally = document.querySelector("#scoreTally");
+    let displayedResults = document.querySelector('#results');
+    let resultMessage = document.createElement("p");
 
     if (humanChoice === computerChoice) {
         message = "It's a draw!";
@@ -51,21 +50,43 @@ function playRound(humanChoice, computerChoice) {
         computerScore++;
     }
 
-    currentScoreTally = `Human: ${humanScore} || Computer: ${computerScore}`;
-    console.log(message + " " + currentScoreTally);
+    currentScoreTally.textContent = `Human: ${humanScore} || Computer: ${computerScore}`;
+    resultMessage.textContent = message;
+    displayedResults.appendChild(resultMessage);
+    checkWinner();
 }
 
 function playGame() {
     let humanChoice;
     let computerChoice;
 
-    for (let i = 0; i < 5; i++) {
-        humanChoice = getHumanChoice();
+    currentScoreTally.textContent = `Human: ${humanScore} || Computer: ${computerScore}`;
+
+    rockButton.addEventListener('click', () => {
+        humanChoice = "Rock";
         computerChoice = getComputerChoice();
         playRound(humanChoice, computerChoice);
-    }
+    })
+    
+    paperButton.addEventListener('click', () => {
+        humanChoice = "Paper";
+        computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+    })
+
+    scissorsButton.addEventListener('click', () => {
+        humanChoice = "Scissors";
+        computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+    })
 }
 
 let humanScore = 0;
 let computerScore = 0;
+let wholeBody = document.querySelector('body');
+let winner = document.querySelector('#winnerResult');
+let currentScoreTally = document.querySelector("#scoreTally");
+let rockButton = document.querySelector('#rockButton');
+let paperButton = document.querySelector('#paperButton');
+let scissorsButton = document.querySelector('#scissorsButton');
 playGame();
